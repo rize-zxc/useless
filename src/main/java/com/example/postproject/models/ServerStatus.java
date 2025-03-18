@@ -1,7 +1,7 @@
 package com.example.postproject.models;
 
 
-public class ServerStatus {
+public class    ServerStatus {
     private boolean available;
 
     public ServerStatus(boolean available) {

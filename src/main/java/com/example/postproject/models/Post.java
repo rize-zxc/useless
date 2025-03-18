@@ -10,14 +10,15 @@ import java.time.LocalDateTime;
 @Table(name ="posts")
 @Getter
 @Setter
-
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private Long userId;
+    // Связь ManyToOne с сущностью User
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @Column(nullable = false)
     private String title;
@@ -28,6 +29,5 @@ public class Post {
     @Column(nullable = false)
     private LocalDateTime publishingDate = LocalDateTime.now();
 
-    public void setUser(User user) {
-    }
+
 }

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class ProductService {
+public class StatusService {
 
     private boolean serverStatus = true;
 

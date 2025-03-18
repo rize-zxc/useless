@@ -1,6 +1,6 @@
 package com.example.postproject.controllers;
 
-import com.example.postproject.services.ProductService;
+import com.example.postproject.services.StatusService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.Map;
 
 @Controller
-public class ProductController {
+public class StatusController {
 
-    private final ProductService productService;
+    private final StatusService productService;
 
-    public ProductController(ProductService productService) {
+    public StatusController(StatusService productService) {
         this.productService = productService;
     }
 

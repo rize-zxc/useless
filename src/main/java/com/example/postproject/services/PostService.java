@@ -1,6 +1,7 @@
 package com.example.postproject.services;
 
 import com.example.postproject.models.Post;
+import com.example.postproject.models.User;
 import com.example.postproject.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,38 +16,34 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    // Создание пользователя
-    public Post createPost(Post post){
-
+    // Создание поста
+    public Post createPost(Post post, User user){
+        post.setUser(user); // Устанавливаем пользователя для поста
         return postRepository.save(post);
     }
 
-    // Получение всех пользователей
+    // Получение всех постов
     public List<Post> getAllPosts() {
-
         return postRepository.findAll();
     }
 
-    // Получение пользователя по ID
+    // Получение поста по ID
     public Optional<Post> getPostById(Long id) {
-
         return postRepository.findById(id);
     }
 
-    // Обновление пользователя
-    public Post updatePost(Long id, Post userDetails) {
+    // Обновление поста
+    public Post updatePost(Long id, Post postDetails) {
         Post post = postRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
-        post.setTitle(userDetails.getTitle());
-        post.setText(userDetails.getText());
-        post.setUserId(userDetails.getUserId());
+                .orElseThrow(() -> new RuntimeException("Post not found with id: " + id));
+        post.setTitle(postDetails.getTitle());
+        post.setText(postDetails.getText());
+        post.setUser(postDetails.getUser()); // Обновляем пользователя
         return postRepository.save(post);
     }
 
-    // Удаление пользователя
+    // Удаление поста
     public void deletePost(Long id) {
-
         postRepository.deleteById(id);
     }
-
 }
