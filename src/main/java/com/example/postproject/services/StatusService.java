@@ -1,6 +1,7 @@
 package com.example.postproject.services;
 
 import com.example.postproject.models.ServerStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
@@ -11,8 +12,9 @@ public class StatusService {
 
     private final ServerStatus serverStatus;
 
-    public StatusService() {
-        this.serverStatus = ServerStatus.getInstance();
+    @Autowired
+    public StatusService(ServerStatus serverStatus) {
+        this.serverStatus = serverStatus;
     }
 
     public boolean isServerAvailable() {
