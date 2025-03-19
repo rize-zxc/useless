@@ -1,20 +1,13 @@
 package com.example.postproject.models;
 
+import org.springframework.stereotype.Component;
+
+@Component //(9(
 public class ServerStatus {
-    private static ServerStatus instance;
     private boolean available;
 
-
-    private ServerStatus(boolean available) {
-        this.available = available;
-    }
-
-
-    public static ServerStatus getInstance() {
-        if (instance == null) {
-            instance = new ServerStatus(true);
-        }
-        return instance;
+    public ServerStatus() {
+        this.available = true; 
     }
 
     public boolean isAvailable() {
