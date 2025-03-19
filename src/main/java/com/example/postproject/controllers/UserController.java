@@ -13,26 +13,37 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final StatusController statusController;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, StatusController statusController) {
         this.userService = userService;
+        this.statusController = statusController;
     }
 
     // Создание пользователя
     @PostMapping("/create")
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<?> createUser(@RequestBody User user) {
+        if (!statusController.isServerAvailable()) {
+            return ResponseEntity.status(503).body("Сервис временно недоступен. Пожалуйста, попробуйте позже.");
+        }
         return ResponseEntity.ok(userService.createUser(user));
     }
 
     // Получение всех пользователей
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<?> getAllUsers() {
+        if (!statusController.isServerAvailable()) {
+            return ResponseEntity.status(503).body("Сервис временно недоступен. Пожалуйста, попробуйте позже.");
+        }
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
     // Получение пользователя по ID
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        if (!statusController.isServerAvailable()) {
+            return ResponseEntity.status(503).body("Сервис временно недоступен. Пожалуйста, попробуйте позже.");
+        }
         Optional<User> user = userService.getUserById(id);
         return user.map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
@@ -40,13 +51,19 @@ public class UserController {
 
     // Обновление пользователя
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+    public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
+        if (!statusController.isServerAvailable()) {
+            return ResponseEntity.status(503).body("Сервис временно недоступен. Пожалуйста, попробуйте позже.");
+        }
         return ResponseEntity.ok(userService.updateUser(id, userDetails));
     }
 
     // Удаление пользователя
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
+        if (!statusController.isServerAvailable()) {
+            return ResponseEntity.status(503).body("Сервис временно недоступен. Пожалуйста, попробуйте позже.");
+        }
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

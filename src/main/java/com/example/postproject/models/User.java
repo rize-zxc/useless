@@ -24,7 +24,7 @@ public class User {
     @Column(nullable = false)
     private String username;
 
-
+//каскад - взаимосвязь
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Post> posts;
 }
